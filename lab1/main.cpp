@@ -1,13 +1,9 @@
+#include <iostream>
 #include "menu.h"
-#include "tablice.h"
+using namespace std;
 
 int main()
 {
-	int** tab;
-	int kolumny, wiersze;
-	kolumny = wiersze = 1;
-	tab = nowa_tablica(kolumny, wiersze);
-	// tworzy tablice ktora zostanie przekazana do funkcji menu(...)
-	menu(tab, &kolumny, &wiersze);
+	menu();
 	return 0;
 }
