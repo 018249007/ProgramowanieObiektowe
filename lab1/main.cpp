@@ -1,9 +1,12 @@
-#include <iostream>
 #include "menu.h"
-using namespace std;
+#include "tablice.h"
 
 int main()
 {
-	menu();
+	int** tab;
+	int kolumny, wiersze;
+	kolumny = wiersze = 1;
+	tab = nowa_tablica(kolumny, wiersze);
+	menu(tab, &kolumny, &wiersze);
 	return 0;
 }

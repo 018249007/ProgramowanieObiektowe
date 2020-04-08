@@ -1,58 +1,65 @@
-#include <iostream>
 #include "tablice.h"
-using namespace std;
 
-void menu()
+void menu(int** tab, int *kolumny, int *wiersze)
 {
 	int wybor=99;
 	while(wybor!=0)
 	{	
 		cout << endl << "======================" << endl;
-		cout << "Nowa tablica -> 1\n";
-		cout << "Wypisz zawartosc -> 2\n";
-		cout << "Zmien element -> 3\n";
-		cout << "Zmien rozmiar -> 4\n";
+		cout << "Odczyt z pliku -> 1\n";
+		cout << "Nowa tablica -> 2\n";
+		cout << "Zapis do pliku -> 3\n";
+		cout << "Wypisz zawartosc -> 4\n";
+		cout << "Zmien element -> 5\n";
+		cout << "Zmien rozmiar -> 6\n";
 		cout << "Wyjscie -> 0\n";
 		cout << "======================" << endl << endl;
 		cout << "Co zrobic? -> ";
 		cin >> wybor;
 		cout << endl;
 		switch (wybor)
-		{
+		{	
 			case 1:
-			int rozmiar;
-			int* tab;
-			cout << "Podaj rozmiar -> ";
-			cin >> rozmiar;
-			tab = nowa_tablica(rozmiar);
-			break;
-
+				tab = odczyt(kolumny, wiersze);
+				break;
 			case 2:
-			wypisz(tab, rozmiar);
-			break;
-
+				cout << "Podaj liczbe kolumn -> ";
+				cin >> *kolumny;
+				cout << "Podaj liczbe wierszy -> ";
+				cin >> *wiersze;
+				tab = nowa_tablica(*kolumny, *wiersze);
+				break;
 			case 3:
-			int ktory;
-			cout << "Zakres elementow: 1 - " << rozmiar << endl;
-			wypisz(tab, rozmiar);
-			cout << "Ktory element zmienic? -> ";
-			cin >> ktory;
-			zmien_element(tab, ktory, rozmiar);
-			break;
-
+				zapis(tab, kolumny, wiersze);
+				break;
 			case 4:
-			int n_rozmiar;
-			cout << "Nowy rozmiar -> ";
-			cin >> n_rozmiar;
-			if(n_rozmiar<1)
-				cout << "Rozmiar nie moze byc mniejszy od 1\n";
-			else
-				tab=zmien_rozmiar(tab, &rozmiar, n_rozmiar);
-			break;
-	
+				wypisz(tab, *kolumny, *wiersze);
+				break;
+			case 5:
+				int ktory_w, ktory_k;
+				cout << "Zakres elementow:\nLiczba kolumn -> " << *kolumny << endl << "Liczba wierszy -> " << *wiersze << endl;
+				wypisz(tab, *kolumny, *wiersze);
+				cout << "Ktory element zmienic?\nKolumna -> ";
+				cin >> ktory_k;
+				cout << "Wiersz -> ";
+				cin >> ktory_w;
+				zmien_element(tab, ktory_w, ktory_k, *kolumny, *wiersze);
+				break;
+			case 6:
+				int n_kolumny, n_wiersze;
+				cout << "Nowa liczba kolumn -> ";
+				cin >> n_kolumny;
+				cout << "Nowa liczba wierszy -> ";
+				cin >> n_wiersze;
+				if((n_kolumny < 1) || (n_wiersze <1))
+					cout << "Rozmiar nie moze byc mniejszy od 1\n";
+				else
+					tab=zmien_rozmiar(tab, kolumny, wiersze, n_kolumny, n_wiersze);
+				break;
 			default:
-			wybor=0;
-			break;
+				wybor=0;
+				free(tab);
+				break;
 		}
 	}
 }
