@@ -37,9 +37,9 @@ void menu(int** tab, int *kolumny, int *wiersze)
 				break;
 			case 5:
 				int ktory_w, ktory_k;
-				cout << "Zakres elementow:\nLiczba kolumn -> " << *kolumny << endl << "Liczba wierszy -> " << *wiersze << endl;
+				cout << "Zakres elementow:\n\nLiczba kolumn -> " << *kolumny << endl << "Liczba wierszy -> " << *wiersze << endl << endl;
 				wypisz(tab, *kolumny, *wiersze);
-				cout << "Ktory element zmienic?\nKolumna -> ";
+				cout << endl << "Ktory element zmienic?\nKolumna -> ";
 				cin >> ktory_k;
 				cout << "Wiersz -> ";
 				cin >> ktory_w;
