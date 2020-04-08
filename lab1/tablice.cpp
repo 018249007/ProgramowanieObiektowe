@@ -3,17 +3,20 @@
 int** nowa_tablica(int kolumny, int wiersze)
 {	
 	int** tab;
-	tab=(int**)malloc(kolumny*sizeof(int));
+	tab=(int**)malloc(kolumny*sizeof(int*));
 	for (int i = 0; i < kolumny; i++)
 		tab[i] = (int*)malloc(wiersze*sizeof(int));
+		// dla kazdej kolumny tworzy nowa tablice
 	for (int i = 0; i < wiersze; i++)
 		for (int j = 0; j < kolumny; j++)
 			tab[j][i] = 0;
+		// wypelnienie komorek zerami
 	return tab;
 }
 
 int** odczyt(int* kolumny, int* wiersze) {
 	fstream plik;
+	string tmp;
 	plik.open(BAZA);
 	int i, j;
 	i = j = 0;
@@ -21,7 +24,6 @@ int** odczyt(int* kolumny, int* wiersze) {
 		cout << "Brak danych";
 	else
 		plik >> *kolumny >> *wiersze;
-		// wczytanie ilosci wierszy i kolumn
 	int** n_tab = nowa_tablica(*kolumny, *wiersze);
 	while(i<*wiersze)
 	{
@@ -30,7 +32,6 @@ int** odczyt(int* kolumny, int* wiersze) {
 			if (plik.eof())
 				break;
 			plik >> n_tab[j][i];
-			// wczytywanie danych do komorek
 			j += 1;
 		}
 		i += 1;
@@ -44,7 +45,6 @@ int** odczyt(int* kolumny, int* wiersze) {
 void zapis(int** tab, int* kolumny, int* wiersze) {
 	fstream plik;
 	plik.open(BAZA, ios::trunc | ios::out);
-	// trunc - kasuje dane starej tablicy aby wpisac nowe
 	plik << *kolumny << "\n" << *wiersze << "\n";
 	for (int i = 0; i < *wiersze; i++)
 	{
@@ -61,7 +61,6 @@ void wypisz(int** tab, int kolumny, int wiersze)
 	{
 		for (int j = 0; j < kolumny; j++)
 			printf("%5d", tab[j][i]);
-			// %5d dla wyrownania tablicy w przypadku liczb o roznej ilosci znakow
 		cout << endl;
 	}
 }
@@ -76,7 +75,6 @@ void zmien_element(int** tab, int ktory_w, int ktory_k, int kolumny, int wiersze
 		cout << "Nowy element: ";
 		cin >> nowy;
 		tab[ktory_k-1][ktory_w-1]=nowy;
-		// -1 tylko w celach estetycznych, uzytkownik podaje zakres tablicy od 1 zamiast 0
 	}
 	return;
 }
@@ -98,19 +96,15 @@ int** zmien_rozmiar(int** tab, int* s_kolumny, int* s_wiersze, int n_kolumny, in
 		if(decyzja==1)
 		{
 			int tmp_kolumny, tmp_wiersze;
-			//zmienne potrzebne do ustalenia ktore wiersze/kolumny zostana uciete
 			if (n_kolumny < *s_kolumny)
 				tmp_kolumny = n_kolumny;
-				// jesli nowych kolumn jest mniej
 			if (n_wiersze < *s_wiersze)
 				tmp_wiersze = n_wiersze;
-				// jesli nowych wierszy jest mniej
 			for(int i=0;i<tmp_wiersze;i++)
 				for(int j=0;j<tmp_kolumny;j++)
 					n_tablica[j][i]=tab[j][i];
 			*s_kolumny = n_kolumny;
 			*s_wiersze = n_wiersze;
-			// przekazanie rozmiarow nowej tablicy poza funkcje
 			return n_tablica;
 		}
 		else
@@ -126,7 +120,6 @@ int** zmien_rozmiar(int** tab, int* s_kolumny, int* s_wiersze, int n_kolumny, in
 				n_tablica[i][j] = tab[i][j];
 		*s_kolumny = n_kolumny;
 		*s_wiersze = n_wiersze;
-		// przekazanie rozmiarow nowej tablicy poza funkcje
 		return n_tablica;
 	}
 }
