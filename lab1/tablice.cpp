@@ -4,14 +4,11 @@ int** nowa_tablica(int kolumny, int wiersze)
 {	
 	int** tab;
 	tab=(int**)malloc(kolumny*sizeof(int));
-	// tworzenie tablicy wskaznikow o danej ilosci kolumn
 	for (int i = 0; i < kolumny; i++)
 		tab[i] = (int*)malloc(wiersze*sizeof(int));
-		// dla kazdej kolumny tworzona jest tablica o danej ilosci wierszy
 	for (int i = 0; i < wiersze; i++)
 		for (int j = 0; j < kolumny; j++)
 			tab[j][i] = 0;
-			//wypelnia wszystkie komorki nowej tablicy zerami
 	return tab;
 }
 
