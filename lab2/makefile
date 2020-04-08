@@ -13,4 +13,4 @@ main.o: main.cpp tablice.h menu.h
 	g++ main.cpp -c -o main.o
 
 clean:
-	rm -f *.o
+	rm -f *.o main
