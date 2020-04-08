@@ -14,7 +14,6 @@ int** nowa_tablica(int kolumny, int wiersze)
 
 int** odczyt(int* kolumny, int* wiersze) {
 	fstream plik;
-	string tmp;
 	plik.open(BAZA);
 	int i, j;
 	i = j = 0;
