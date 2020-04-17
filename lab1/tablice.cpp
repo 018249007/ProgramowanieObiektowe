@@ -17,52 +17,20 @@ void wypisz(int* tab, int rozmiar)
 	cout << endl;
 }
 
-void zmien_element(int* tab, int ktory, int rozmiar)
+void zmien_element(int* tab, int ktory, int rozmiar, int nowy)
 {
-	if ((ktory>rozmiar)||(ktory<1))
-		cout << "Numer elementu poza zakresem tablicy\n";
-	else
-	{
-		int nowy;
-		cout << "Nowy element: ";
-		cin >> nowy;
-		tab[ktory-1]=nowy;
-	}
+	tab[ktory-1]=nowy;
 	return;
 }
 
 int* zmien_rozmiar(int* tab, int* s_rozmiar, int n_rozmiar)
 {
-	if(n_rozmiar==*s_rozmiar)
-	{
-		cout << "Rozmiary takie same, nic nie zmieniono\n";
-		return tab;
-	}
 	int* n_tablica=nowa_tablica(n_rozmiar);
+	int tmp_rozmiar=*s_rozmiar;
 	if(n_rozmiar<*s_rozmiar)
-	{
-		int decyzja;
-		cout << "Nowa tablica jest mniejsza od starej, uciac elementy?\n";
-		cout << "Tak -> 1\nNie -> 0\n";
-		cin >> decyzja;
-		if(decyzja==1)
-		{
-			for(int i=0;i<n_rozmiar;i++)
-				n_tablica[i]=tab[i];
-			*s_rozmiar=n_rozmiar;
-			return n_tablica;
-		}
-		else
-		{
-			cout << "Nie zmieniono rozmiaru\n";
-			return tab;
-		}
-	}
-	else
-	{
-		for(int i=0;i<*s_rozmiar;i++)
-			n_tablica[i]=tab[i];
-		*s_rozmiar=n_rozmiar;
-		return n_tablica;
-	}
+		tmp_rozmiar=n_rozmiar;
+	for(int i=0;i<tmp_rozmiar;i++)
+		n_tablica[i]=tab[i];
+	*s_rozmiar=n_rozmiar;
+	return n_tablica;
 }

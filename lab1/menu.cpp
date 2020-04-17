@@ -32,24 +32,47 @@ void menu()
 			break;
 
 			case 3:
-			int ktory;
+			int ktory, nowy;
 			cout << "Zakres elementow: 1 - " << rozmiar << endl;
 			wypisz(tab, rozmiar);
 			cout << "Ktory element zmienic? -> ";
 			cin >> ktory;
-			zmien_element(tab, ktory, rozmiar);
+			if ((ktory>rozmiar)||(ktory<1))
+			{
+                		cout << "Numer elementu poza zakresem tablicy\n";
+				break;
+			}
+			cout << "Nowy element: ";
+                	cin >> nowy;
+			zmien_element(tab, ktory, rozmiar, nowy);
 			break;
 
 			case 4:
-			int n_rozmiar;
+			int n_rozmiar, decyzja;
 			cout << "Nowy rozmiar -> ";
 			cin >> n_rozmiar;
 			if(n_rozmiar<1)
+			{
 				cout << "Rozmiar nie moze byc mniejszy od 1\n";
-			else
+				break;
+			}
+			if(n_rozmiar==rozmiar)
+			{
+				cout << "Rozmiary takie same, nic nie zmieniono\n";
+				break;
+			}
+			if(n_rozmiar<rozmiar)
+			{
+                                cout << "Nowa tablica jest mniejsza od starej, uciac elementy?\n";
+                                cout << "Tak -> 1\nNie -> 0\n";
+                              	cin >> decyzja;
+			}
+			if(decyzja==1)
 				tab=zmien_rozmiar(tab, &rozmiar, n_rozmiar);
+			else
+				cout << "Nic nie zmieniono\n";
 			break;
-	
+
 			default:
 			wybor=0;
 			break;

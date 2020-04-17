@@ -21,6 +21,7 @@ void menu(int** tab, int *kolumny, int *wiersze)
 		{	
 			case 1:
 				tab = odczyt(kolumny, wiersze);
+				cout << "Zakonczono wczytywanie\n";
 				break;
 			case 2:
 				cout << "Podaj liczbe kolumn -> ";
@@ -31,28 +32,58 @@ void menu(int** tab, int *kolumny, int *wiersze)
 				break;
 			case 3:
 				zapis(tab, kolumny, wiersze);
+				cout << "Zapisano tablice\n";
 				break;
 			case 4:
 				wypisz(tab, *kolumny, *wiersze);
 				break;
 			case 5:
-				int ktory_w, ktory_k;
+				int ktory_w, ktory_k, nowy;
 				cout << "Zakres elementow:\nLiczba kolumn -> " << *kolumny << endl << "Liczba wierszy -> " << *wiersze << endl;
 				wypisz(tab, *kolumny, *wiersze);
 				cout << "Ktory element zmienic?\nKolumna -> ";
 				cin >> ktory_k;
 				cout << "Wiersz -> ";
 				cin >> ktory_w;
-				zmien_element(tab, ktory_w, ktory_k, *kolumny, *wiersze);
+				if ((ktory_k>*kolumny)||(ktory_k<1)||(ktory_w>*wiersze)||(ktory_k<1))
+				{
+			                cout << "Numer elementu poza zakresem tablicy\n";
+					break;
+				}
+				else
+			        {
+                			cout << "Nowy element: ";
+                			cin >> nowy;
+				}
+				zmien_element(tab, ktory_w, ktory_k, *kolumny, *wiersze, nowy);
 				break;
 			case 6:
-				int n_kolumny, n_wiersze;
+				int n_kolumny, n_wiersze, decyzja;
 				cout << "Nowa liczba kolumn -> ";
 				cin >> n_kolumny;
 				cout << "Nowa liczba wierszy -> ";
 				cin >> n_wiersze;
 				if((n_kolumny < 1) || (n_wiersze <1))
+				{
 					cout << "Rozmiar nie moze byc mniejszy od 1\n";
+					break;
+				}
+				if((n_kolumny==*kolumny)&&(n_wiersze==*wiersze))
+			        {
+        			        cout << "Rozmiary takie same, nic nie zmieniono\n";
+                			break;
+        			}
+				if((n_kolumny<*kolumny)||(n_wiersze<*wiersze))
+			        {
+                			cout << "Nowa tablica jest mniejsza od starej, uciac elementy?\n";
+                			cout << "Tak -> 1\nNie -> 0\n";
+                			cin >> decyzja;
+				}
+				if(decyzja==0)
+				{
+					cout << "Nic nie zmieniono\n";
+					break;
+				}
 				else
 					tab=zmien_rozmiar(tab, kolumny, wiersze, n_kolumny, n_wiersze);
 				break;
