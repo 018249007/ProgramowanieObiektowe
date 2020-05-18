@@ -33,7 +33,6 @@ void nowa_tablica(Tablica* nowa, int kolumny, int wiersze);
   * Funkcja odczytuje dane o nowej tablicy z pliku
   *
   * @param tablica  wskaznik na zmienna strukturalna przechowujaca informacje o tablicy
-  * w przypadku pustego pliku liczba kolumn i wierszy zostaje ustawiona na 1
   */
 void odczyt(Tablica* tablica);
 
