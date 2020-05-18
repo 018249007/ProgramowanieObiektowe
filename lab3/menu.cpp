@@ -33,8 +33,18 @@ void menu(Tablica* arr)
 				int kolumny, wiersze;
 				cout << "Podaj liczbe kolumn -> ";
 				cin >> kolumny;
+				if (kolumny < 1)
+				{
+					cout << "Liczba nie moze byc mniejsza od 1\n";
+					break;
+				}
 				cout << "Podaj liczbe wierszy -> ";
 				cin >> wiersze;
+				if (wiersze < 1)
+				{
+					cout << "Liczba nie moze byc mniejsza od 1\n";
+					break;
+				}
 				nowa_tablica(arr, kolumny, wiersze);
 				break;
 			case 3:
