@@ -22,8 +22,7 @@ void odczyt(Tablica* arr)
 	i = j = 0;
 	if (plik.eof())
 	{
-		nowa_tablica(arr, 1, 1);
-		cout << "Brak danych, stworzono tablice 1x1\n";
+		cout << "Brak danych\n";
 		return;
 	}	
 	plik >> kolumny >> wiersze;
