@@ -3,10 +3,8 @@
 
 int main()
 {
-	Tablica* tablica = new Tablica;
-	nowa_tablica(tablica, 1, 1);
+	Tablica* tablica = new Tablica();
 	menu(tablica);
-	zwolnij_pamiec(tablica);
 	delete tablica;
 	return 0;
 }

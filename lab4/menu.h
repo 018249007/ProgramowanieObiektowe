@@ -5,7 +5,7 @@
 /**
  * Funkcja sluzy do komunikacji z uzytkownikiem
  *
- * @param[in,out] arr - zmienna typu Tablica
+ * @param[in,out] arr - zmienna typu Tablica 
  */
 void menu(Tablica* arr);
 

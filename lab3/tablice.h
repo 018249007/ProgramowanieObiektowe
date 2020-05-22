@@ -9,9 +9,9 @@ using namespace std;
 /**
   * Struktura przechowuje dane o tablicy
   *
-  * @param tab  tablica dwywymiarowa
-  * @param wiersze  liczba wierszy tab
-  * @param kolumny  liczba kolumn tab
+  * @param tab - tablica dwywymiarowa
+  * @param wiersze - liczba wierszy
+  * @param kolumny - liczba kolumn
   */
 struct Tablica
 {
@@ -23,92 +23,153 @@ struct Tablica
 /**
   * Funkcja tworzy tablice o podanej ilosci kolumn i wierszy
   *
-  * @param nowa  wskaznik na zmienna strukturalna przechowujaca informacje o tablicy
-  * @param kolumny  liczba kolumn tworzonej tablicy
-  * @oaram wiersze  liczba wierszy tworzonej tablicy
+  * @param[in,out] nowa - zmienna typu Tablica*
+  * @param[in] kolumny - liczba kolumn
+  * @oaram[in] wiersze - liczba wierszy
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void nowa_tablica(Tablica* nowa, int kolumny, int wiersze);
+int nowa_tablica(Tablica* nowa, int kolumny, int wiersze);
+
+/**
+  * Funkcja zwalnia zaalokowana pamiec
+  *
+  * @param[in,out] tab - zmienna typu Tablica*
+  */
+void zwolnij_pamiec(Tablica* tab);
 
 /**
   * Funkcja odczytuje dane o nowej tablicy z pliku
   *
-  * @param tablica  wskaznik na zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in,out] tablica - zmienna typu Tablica*
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void odczyt(Tablica* tablica);
+int odczyt(Tablica* tablica);
 
 /**
   * Funkcja zapisuje dane o tablicy do pliku
   *
-  * @param tablica  zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in] tablica - zmienna typu Tablica
   */
 void zapis(Tablica tablica);
 
 /**
   * Funkcja wypisuje zawartosc przekazanej tablicy
   *
-  * @param tablica  zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in] tablica - zmienna typu Tablica
   */
 void wypisz(Tablica tablica);
 
 /**
   * Funkcja zmienia wartosc danej komorki
   *
-  * @param tablica  wskaznik na zmienna strukturalna przechowujaca informacje o tablicy
-  * @param ktory_w  numer wiersza, w ktorym znajduje sie szukana komorka
-  * @param ktory_k  numer kolumny, w ktorej znajduje sie szukana komorka
-  * @param nowy  wartosc, ktora ma zostac wpisana do danej komorki
+  * @param[in,out] tablica - zmienna typu Tablica*
+  * @param[in] ktory_w - numer wiersza
+  * @param[in] ktory_k - numer kolumny
+  * @param[in] nowy - nowa wartosc
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void zmien_element(Tablica* tablica, int ktory_w, int ktory_k, int nowy);
+int zmien_element(Tablica* tablica, int ktory_w, int ktory_k, int nowy);
 
 /**
   * Funkcja zmienia rozmiar podanej tablicy
   *
-  * @param tab  wskaznik na zmienna strukturalna przechowujaca informacje o tablicy
-  * @param n_kolumny  liczba kolumn nowej tablicy
-  * @param n_wiersze  liczba wierszy nowej tablicy
+  * @param[in,out] tab - zmienna typu Tablica*
+  * @param[in] n_kolumny - nowa liczba kolumn
+  * @param[in] n_wiersze - nowa liczba wierszy
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void zmien_rozmiar(Tablica* tablica, int n_kolumny, int n_wiersze);
+int zmien_rozmiar(Tablica* tablica, int n_kolumny, int n_wiersze);
 
 /**
-  * Funkcja sumuje wszystkie kolumny zawarte w tablicy i wypisuje wartosci
+  * Funkcja sumuje wszystkie komorki danej kolumny
   *
-  * @param tablica  zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in] tablica - zmienna typu Tablica
+  * @param[in] numer - numer kolumny
+  * @param[in,out] wynik - obliczona suma
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void sumuj_k(Tablica tablica);
+int sumuj_k(Tablica tablica, int numer, int* wynik);
 
 /**
-  * Funkcja sumuje wszystkie wiersze zawarte w tablicy i wypisuje wartosci
+  * Funkcja sumuje wszystkie komorki danego wiersza
   *
-  * @param tablica  zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in] tablica - zmienna typu Tablica
+  * @param[in] numer - numer wiersza
+  * @param[in,out] wynik - obliczona suma
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void sumuj_w(Tablica tablica);
+int sumuj_w(Tablica tablica, int numer, int* wynik);
 
 /**
-  * Funkcja wypisuje najmniejsze i najwieksze wartosci dla kazdej kolumny w tablicy
+  * Funkcja znajduje najwieksza wartosc w danej kolumnie
   *
-  * @param tablica  zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in] tablica - zmienna typu Tablica
+  * @param[in] numer - numer kolumny
+  * @param[in,out] wynik - znaleziona wartosc
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void naj_k(Tablica tablica);
+int max_k(Tablica tablica, int numer, int* wynik);
 
 /**
-  * Funkcja wypisuje najmniejsze i najwieksze wartosci dla kazdego wiersza w tablicy
+  * Funkcja znajduje najwieksza wartosc w danym wierszu
   *
-  * @param tablica  zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in] tablica - zmienna typu Tablica
+  * @param[in] numer - numer kolumny
+  * @param[in,out] wynik - znaleziona wartosc
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void naj_w(Tablica tablica);
+int max_w(Tablica tablica, int numer, int* wynik);
 
 /**
-  * Funkcja oblicza srednia wartosc dla kazdej kolumny w tablicy oraz wypisuje ja
+  * Funkcja znajduje najmniejsza wartosc w danej kolumnie
   *
-  * @param tablica  zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in] tablica - zmienna typu Tablica
+  * @param[in] numer - numer kolumny
+  * @param[in,out] wynik - znaleziona wartosc
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void srednia_k(Tablica tablica);
+int min_k(Tablica tablica, int numer, int* wynik);
 
 /**
-  * Funkcja oblicza srednia wartosc dla kazdego wiersza w tablicy i wypisuje ja
+  * Funkcja znajduje najmniejsza wartosc w danym wierszu
   *
-  * @param tablica  zmienna strukturalna przechowujaca informacje o tablicy
+  * @param[in] tablica - zmienna typu Tablica
+  * @param[in] numer - numer kolumny
+  * @param[in,out] wynik - znaleziona wartosc
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
   */
-void srednia_w(Tablica tablica);
+int min_w(Tablica tablica, int numer, int* wynik);
+
+/**
+  * Funkcja oblicza srednia wartosc dla danej kolumny
+  *
+  * @param[in] tablica - zmienna typu Tablica
+  * @param[in] numer - numer kolumny
+  * @param[in,out] wynik - obliczona srednia
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
+  */
+int srednia_k(Tablica tablica, int numer, float* wynik);
+
+/**
+  * Funkcja oblicza srednia wartosc dla danego wiersza
+  *
+  * @param[in] tablica - zmienna typu Tablica
+  * @param[in] numer - numer kolumny
+  * @param[in,out] wynik - obliczona srednia
+  *
+  * @return kod bledu lub 0 w przypadku powodzenia
+  */
+int srednia_w(Tablica tablica, int numer, float* wynik);
 
 #endif

@@ -14,7 +14,7 @@ void menu(Tablica* arr)
 		cout << "Zmien element -> 5\n";
 		cout << "Zmien rozmiar -> 6\n";
 		cout << "Sumowanie -> 7\n";
-		cout << "Najmniejsze i najwieksze warosci -> 8\n";
+		cout << "Najmniejsze i najwieksze wartosci -> 8\n";
 		cout << "Srednie wartosci -> 9\n";
 		cout << "Wyjscie -> 0\n";
 		cout << "======================" << endl << endl;
@@ -24,15 +24,13 @@ void menu(Tablica* arr)
 		switch (wybor)
 		{	
 			case 1:
-				err = odczyt(arr);
+				err = arr->odczyt();
 				if (err)
 				{
 					cout << "Brak danych\n";
+					break;
 				}
-				else
-				{
-					cout << "Zakonczono wczytywanie\n";
-				}
+				cout << "Zakonczono wczytywanie\n";
 				break;
 			case 2:
 			{
@@ -42,26 +40,27 @@ void menu(Tablica* arr)
 				cout << "Podaj liczbe wierszy -> ";
 				cin >> wiersze;
 				cout << endl;
-				err = nowa_tablica(arr, kolumny, wiersze);
+				err = arr->nowa_tablica(kolumny, wiersze);
 				if (err)
 				{
 					cout << "Nieprawidlowa wartosc\n";
+					break;
 				}
+				cout << "Pomyslnie utworzono\n";
 				break;
 			}
 			case 3:
-				zapis(*arr);
+				arr->zapis();
 				cout << "Zapisano tablice\n";
 				break;
 			case 4:
-				wypisz(*arr);
+				arr->wypisz();
 				break;
 			case 5:
 			{
 				int ktory_w, ktory_k, nowy;
-				cout << "Zakres elementow:\nLiczba kolumn -> " << arr->kolumny << endl << "Liczba wierszy -> " << arr->wiersze << endl << endl;
-				wypisz(*arr);
-				cout << endl;
+				cout << "Zakres elementow:\nLiczba kolumn -> " << arr->ile_k() << endl << "Liczba wierszy -> " << arr->ile_w() << endl;
+				arr->wypisz();
 				cout << "Ktory element zmienic?\nKolumna -> ";
 				cin >> ktory_k;
 				cout << "Wiersz -> ";
@@ -69,36 +68,30 @@ void menu(Tablica* arr)
 				cout << "Nowy element: ";
 				cin >> nowy;
 				cout << endl;
-				err = zmien_element(arr, ktory_w, ktory_k, nowy);
+				err = arr->zmien_element(ktory_w, ktory_k, nowy);
 				if (err)
 				{
 					cout << "Nieprawidlowa wartosc\n";
 					break;
 				}
-				else
-				{
-					cout << "Pomyslnie zmieniono\n";
-				}
+				cout << "Pomyslnie zmieniono\n";
 				break;
 			}
 			case 6:
 			{
-				int n_kolumny, n_wiersze;
+				int n_kolumny, n_wiersze, decyzja;
 				cout << "Nowa liczba kolumn -> ";
 				cin >> n_kolumny;
 				cout << "Nowa liczba wierszy -> ";
 				cin >> n_wiersze;
 				cout << endl;
-				err = zmien_rozmiar(arr, n_kolumny, n_wiersze);
+				err = arr->zmien_rozmiar(n_kolumny, n_wiersze);
 				if (err)
 				{
 					cout << "Nieprawidlowa wartosc\n";
 					break;
 				}
-				else
-				{
-					cout << "Pomyslnie zmieniono\n";
-				}
+				cout << "Pomyslnie zmieniono\n";
 				break;
 			}
 			case 7:
@@ -110,33 +103,35 @@ void menu(Tablica* arr)
 				cout << endl;
 				if (rowcol == 1)
 				{
-					wypisz(*arr);
+					arr->wypisz();
 					cout << endl;
-					cout << "Zakres: 1 -> " << arr->kolumny << endl << "Numer kolumny: ";
+					cout << "Zakres: 1 -> " << arr->ile_k() << endl << "Numer kolumny: ";
 					cin >> numer;
 					cout << endl;
-					err = sumuj_k(*arr, numer, &wynik);
+					err = arr->sumuj_k(numer, &wynik);
 					if (err)
 					{
 						cout << "Nieprawidlowa wartosc\n";
 						break;
 					}
 					cout << "Suma: " << wynik << endl;
+					break;
 				}
 				if (rowcol == 2)
 				{
-					wypisz(*arr);
+					arr->wypisz();
 					cout << endl;
-					cout << "Zakres: 1 -> " << arr->wiersze << endl << "Numer wiersza: ";
+					cout << "Zakres: 1 -> " << arr->ile_w() << endl << "Numer wiersza: ";
 					cin >> numer;
 					cout << endl;
-					err = sumuj_w(*arr, numer, &wynik);
+					err = arr->sumuj_w(numer, &wynik);
 					if (err)
 					{
 						cout << "Nieprawidlowa wartosc\n";
 						break;
 					}
 					cout << "Suma: " << wynik << endl;
+					break;
 				}
 				else
 				{
@@ -158,12 +153,12 @@ void menu(Tablica* arr)
 					cout << endl;
 					if (rowcol == 1)
 					{
-						wypisz(*arr);
+						arr->wypisz();
 						cout << endl;
-						cout << "Zakres: 1 -> " << arr->kolumny << endl << "Numer kolumny: ";
+						cout << "Zakres: 1 -> " << arr->ile_k() << endl << "Numer kolumny: ";
 						cin >> numer;
 						cout << endl;
-						err = min_k(*arr, numer, &wynik);
+						err = arr->min_k(numer, &wynik);
 						if (err)
 						{
 							cout << "Nieprawidlowa wartosc\n";
@@ -174,12 +169,12 @@ void menu(Tablica* arr)
 					}
 					if (rowcol == 2)
 					{
-						wypisz(*arr);
+						arr->wypisz();
 						cout << endl;
-						cout << "Zakres: 1 -> " << arr->wiersze << endl << "Numer wiersza: ";
+						cout << "Zakres: 1 -> " << arr->ile_w() << endl << "Numer wiersza: ";
 						cin >> numer;
 						cout << endl;
-						err = min_w(*arr, numer, &wynik);
+						err = arr->min_w(numer, &wynik);
 						if (err)
 						{
 							cout << "Nieprawidlowa wartosc\n";
@@ -202,12 +197,12 @@ void menu(Tablica* arr)
 					cout << endl;
 					if (rowcol == 1)
 					{
-						wypisz(*arr);
+						arr->wypisz();
 						cout << endl;
-						cout << "Zakres: 1 -> " << arr->kolumny << endl << "Numer kolumny: ";
+						cout << "Zakres: 1 -> " << arr->ile_k() << endl << "Numer kolumny: ";
 						cin >> numer;
 						cout << endl;
-						err = max_k(*arr, numer, &wynik);
+						err = arr->max_k(numer, &wynik);
 						if (err)
 						{
 							cout << "Nieprawidlowa wartosc\n";
@@ -219,12 +214,12 @@ void menu(Tablica* arr)
 					}
 					if (rowcol == 2)
 					{
-						wypisz(*arr);
+						arr->wypisz();
 						cout << endl;
-						cout << "Zakres: 1 -> " << arr->wiersze << endl << "Numer wiersza: ";
+						cout << "Zakres: 1 -> " << arr->ile_w() << endl << "Numer wiersza: ";
 						cin >> numer;
 						cout << endl;
-						err = max_w(*arr, numer, &wynik);
+						err = arr->max_w(numer, &wynik);
 						if (err)
 						{
 							cout << "Nieprawidlowa wartosc\n";
@@ -255,12 +250,12 @@ void menu(Tablica* arr)
 				cout << endl;
 				if (rowcol == 1)
 				{
-					wypisz(*arr);
+					arr->wypisz();
 					cout << endl;
-					cout << "Zakres: 1 -> " << arr->kolumny << endl << "Numer kolumny: ";
+					cout << "Zakres: 1 -> " << arr->ile_k() << endl << "Numer kolumny: ";
 					cin >> numer;
 					cout << endl;
-					err = srednia_k(*arr, numer, &wynik);
+					err = arr->srednia_k(numer, &wynik);
 					if (err)
 					{
 						cout << "Nieprawidlowa wartosc\n";
@@ -272,12 +267,12 @@ void menu(Tablica* arr)
 				}
 				if (rowcol == 2)
 				{
-					wypisz(*arr);
+					arr->wypisz();
 					cout << endl;
-					cout << "Zakres: 1 -> " << arr->wiersze << endl << "Numer wiersza: ";
+					cout << "Zakres: 1 -> " << arr->ile_w() << endl << "Numer wiersza: ";
 					cin >> numer;
 					cout << endl;
-					err = srednia_w(*arr, numer, &wynik);
+					err = arr->srednia_w(numer, &wynik);
 					if (err)
 					{
 						cout << "Nieprawidlowa wartosc\n";
