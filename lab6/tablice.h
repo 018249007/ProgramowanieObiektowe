@@ -5,6 +5,7 @@
 #include "komorka.h"
 #include "komorkaInt.h"
 #include "komorkaStr.h"
+#include "komorkaDbl.h"
 
 /**
   * Klasa przechowuje dane o tablicy
@@ -12,7 +13,7 @@
   * @param tab - tablica dwywymiarowa
   * @param wiersze - liczba wierszy
   * @param kolumny - liczba kolumn
-  * @param typy - typy kolumn, 0 - int, 1 - string
+  * @param typy - typy kolumn, 0 - int, 1 - string, 2 - double
   */
 class Tablica
 {
@@ -27,7 +28,7 @@ private:
   *
   * @param[in] kolumny - liczba kolumn
   * @param[in] wiersze - liczba wierszy
-  * @param[in,out] typy - tablica typow kolumn (0 - int, 1 - string)
+  * @param[in,out] typy - tablica typow kolumn (0 - int, 1 - string, 2 - double)
   *
   * @return - tablica dwywymiarowa
   */
@@ -69,12 +70,14 @@ public:
     // Destruktor zwalnia pamiec tablicy dwuwymiarowej
     ~Tablica()
     {
-     for (int i = 0; i < wiersze;i++)
+        for (int i = 0; i < wiersze;i++)
         {
             for (int j = 0; j < kolumny; j++)
             {
                 delete tab[j][i];
+                cout << " ";
             }
+            cout << endl;
         }
         zwolnij_pamiec();
     }
@@ -89,11 +92,21 @@ public:
       * Metoda zwraca typ kolumny
       *
       * @param[in] numer - numer kolumny
-      * @param[in,out] typ - typ kolumny (0 - int, 1 - string)
+      * @param[in,out] typ - typ kolumny (0 - int, 1 - string, 2 - double)
       *
       * @return kod bledu lub 0 w przypadku powodzenia
       */
     int zwroc_typ(int numer, int* typ);
+
+    /**
+      * Metoda zmienia typ kolumny
+      *
+      * @param[in] numer - numer kolumny
+      * @param[in] typ - nowy typ
+      *
+      * @return kod bledu lub 0 w przypadku powodzenia
+      */
+    int ustaw_typ(int numer, int typ);
 
     /**
       * Metoda tworzy nowy zestaw danych obiektu
@@ -141,6 +154,17 @@ public:
     int zmien_element(int ktory_w, int ktory_k, int nowy);
 
     /**
+      * Metoda zmienia wartosc danej komorki
+      *
+      * @param[in] ktory_w - numer wiersza
+      * @param[in] ktory_k - numer kolumny
+      * @param[in] nowy - nowa wartosc double
+      *
+      * @return - kod bledu lub 0 w przypadku powodzenia
+      */
+    int zmien_element(int ktory_w, int ktory_k, double nowy);
+
+    /**
       * Metoda zmienia rozmiar podanej tablicy
       *
       * @param[in] n_kolumny - nowa liczba kolumn
@@ -159,7 +183,7 @@ public:
       *
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
-    int sumuj_k(int numer, int* wynik);
+    int sumuj_k(int numer, double* wynik);
 
     /**
       * Metoda sumuje wszystkie wartosci w wierszu
@@ -170,7 +194,7 @@ public:
       *
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
-    int sumuj_w(int numer, int* wynik);
+    int sumuj_w(int numer, double* wynik);
 
     /**
       * Metoda znajduje najmniejsza wartosc w kolumnie
@@ -181,7 +205,7 @@ public:
       *
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
-    int min_k(int numer, int* wynik);
+    int min_k(int numer, double* wynik);
 
     /**
       * Metoda znajduje najmniejsza wartosc w wierszu
@@ -192,7 +216,7 @@ public:
       *
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
-    int min_w(int numer, int* wynik);
+    int min_w(int numer, double* wynik);
 
     /**
       * Metoda znajduje najwieksza wartosc w kolumnie
@@ -203,7 +227,7 @@ public:
       *
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
-    int max_k(int numer, int* wynik);
+    int max_k(int numer, double* wynik);
 
     /**
       * Metoda znajduje najwiieksza wartosc w wierszu
@@ -214,7 +238,7 @@ public:
       *
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
-    int max_w(int numer, int* wynik);
+    int max_w(int numer, double* wynik);
 
     /**
       * Metoda oblicza srednia wartosc dla danej kolumny
@@ -225,7 +249,7 @@ public:
       *
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
-    int srednia_k(int numer, float* wynik);
+    int srednia_k(int numer, double* wynik);
 
     /**
       * Metoda oblicza srednia wartosc dla danego wiersza
@@ -236,7 +260,7 @@ public:
       *
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
-    int srednia_w(int numer, float* wynik);
+    int srednia_w(int numer, double* wynik);
 };
 
 #endif
