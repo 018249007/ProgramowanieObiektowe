@@ -1,5 +1,5 @@
 #include "menu.h"
-
+ 
 void menu(Tablica* arr)
 {
 	int wybor = 99;
