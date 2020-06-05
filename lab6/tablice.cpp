@@ -20,14 +20,14 @@ int Tablica::zwroc_typ(int numer, int* typ)
 	}
 	else
 	{
-		*typ = typy[numer-1];
+		*typ = typy[numer - 1];
 	}
 	return 0;
 }
 
 Komorka*** Tablica::alokuj_pamiec(int kolumny, int wiersze, int* typy)
 {
-	Komorka*** tab = new Komorka**[kolumny];
+	Komorka*** tab = new Komorka * *[kolumny];
 	for (int i = 0; i < kolumny; i++)
 	{
 		tab[i] = new Komorka * [wiersze];
@@ -40,9 +40,13 @@ Komorka*** Tablica::alokuj_pamiec(int kolumny, int wiersze, int* typy)
 			{
 				tab[j][i] = new KomorkaInt();
 			}
-			else
+			else if (typy[j] == 1)
 			{
 				tab[j][i] = new KomorkaStr();
+			}
+			else if (typy[j] == 2)
+			{
+				tab[j][i] = new KomorkaDbl();
 			}
 		}
 	}
@@ -63,7 +67,7 @@ int Tablica::nowa_tablica(int n_kolumny, int n_wiersze)
 	{
 		cout << "Typ kolumny nr " << i + 1 << ": ";
 		cin >> tmp_typ;
-		if (tmp_typ != 0 && tmp_typ != 1)
+		if (tmp_typ != 0 && tmp_typ != 1 && tmp_typ != 2)
 		{
 			return ERR_INVALID_VALUE;
 		}
@@ -84,12 +88,12 @@ void Tablica::zwolnij_pamiec() {
 void Tablica::pobierz_typy()
 {
 	int tmp_typ;
-	cout << "0 -> Int, 1 -> String\n";
+	cout << "0 -> Int, 1 -> String, 2 -> Double\n";
 	for (int i = 0; i < kolumny; i++)
 	{
 		cout << "Kolumna nr " << i + 1 << ": ";
 		cin >> tmp_typ;
-		if (tmp_typ != 1 && tmp_typ != 0)
+		if (tmp_typ != 1 && tmp_typ != 0 && tmp_typ != 2)
 		{
 			cout << "Nieprawidlowa wartosc, jeszcze raz: ";
 			i -= 1;
@@ -101,43 +105,83 @@ void Tablica::pobierz_typy()
 	}
 }
 
-int Tablica::odczyt() 
+int Tablica::ustaw_typ(int numer, int typ)
+{
+	if (numer < 1 || numer > kolumny)
+	{
+		return ERR_INVALID_VALUE;
+	}
+	if (typ != 0 && typ != 1 && typ != 2)
+	{
+		return ERR_INVALID_VALUE;
+	}
+	typy[numer - 1] = typ;
+	if (typ == 0)
+	{
+		for (int i = 0; i < wiersze; i++)
+		{
+			delete tab[numer - 1][i];
+			tab[numer - 1][i] = new KomorkaInt();
+		}
+	}
+	if (typ == 1)
+	{
+		for (int i = 0; i < wiersze; i++)
+		{
+			delete tab[numer - 1][i];
+			tab[numer - 1][i] = new KomorkaStr();
+		}
+	}
+	if (typ == 2)
+	{
+		for (int i = 0; i < wiersze; i++)
+		{
+			delete tab[numer - 1][i];
+			tab[numer - 1][i] = new KomorkaDbl();
+		}
+	}
+	return 0;
+}
+
+int Tablica::odczyt()
 {
 	int i, j;
 	i = j = 0;
 	fstream plik;
-	string tmp = "";
+	string tmp;
 	plik.open(BAZA);
 	if (plik.eof())
 	{
 		return ERR_EOF;
 	}
-	getline(plik, tmp);
-	kolumny = stoi(tmp);
-	getline(plik, tmp);
-	wiersze = stoi(tmp);
+	plik >> kolumny >> wiersze;
 	for (int i = 0; i < kolumny; i++)
 	{
-		getline(plik, tmp);
-		typy[i] = stoi(tmp);
+		plik >> typy[i];
 	}
 	tab = alokuj_pamiec(kolumny, wiersze, typy);
-	while(i<wiersze)
+	plik.clear();
+	plik.ignore(INT16_MAX, '\n');
+	while (i < wiersze)
 	{
-		while(j<kolumny)
+		while (j < kolumny)
 		{
-			if (plik.eof())
-			{
-				break;
-			}
 			getline(plik, tmp);
-			if (typy[j] == 0)
+			if(typy[j] == 0)
 			{
 				tab[j][i]->zmien_wartosc(stoi(tmp));
 			}
-			else
+			else if (typy[j] == 1)
 			{
 				tab[j][i]->zmien_wartosc(tmp);
+			}
+			else
+			{
+				tab[j][i]->zmien_wartosc(stod(tmp));
+			}
+			if (plik.eof())
+			{
+				break;
 			}
 			j += 1;
 		}
@@ -153,11 +197,12 @@ void Tablica::zapisz()
 	fstream plik;
 	string wartosc;
 	plik.open(BAZA, ios::trunc | ios::out);
-	plik << kolumny << "\n" << wiersze << "\n";
+	plik << kolumny << " " << wiersze << "\n";
 	for (int i = 0; i < kolumny; i++)
 	{
-		plik << typy[i] << endl;;
+		plik << typy[i] << " ";
 	}
+	plik << endl;
 	for (int i = 0; i < wiersze; i++)
 	{
 		for (int j = 0; j < kolumny; j++)
@@ -189,7 +234,7 @@ int Tablica::zmien_element(int ktory_w, int ktory_k, string nowy)
 	{
 		return ERR_INVALID_VALUE;
 	}
-	tab[ktory_k-1][ktory_w-1]->zmien_wartosc(nowy);
+	tab[ktory_k - 1][ktory_w - 1]->zmien_wartosc(nowy);
 	return 0;
 }
 
@@ -199,12 +244,22 @@ int Tablica::zmien_element(int ktory_w, int ktory_k, int nowy)
 	{
 		return ERR_INVALID_VALUE;
 	}
-	tab[ktory_k-1][ktory_w-1]->zmien_wartosc(nowy);
+	tab[ktory_k - 1][ktory_w - 1]->zmien_wartosc(nowy);
+	return 0;
+}
+
+int Tablica::zmien_element(int ktory_w, int ktory_k, double nowy)
+{
+	if ((ktory_k > ile_k()) || (ktory_k < 1) || (ktory_w > ile_w()) || (ktory_k < 1))
+	{
+		return ERR_INVALID_VALUE;
+	}
+	tab[ktory_k - 1][ktory_w - 1]->zmien_wartosc(nowy);
 	return 0;
 }
 
 int Tablica::zmien_rozmiar(int n_kolumny, int n_wiersze)
-{	
+{
 	if ((n_kolumny < 1) || (n_wiersze < 1))
 	{
 		return ERR_INVALID_VALUE;
@@ -238,20 +293,20 @@ int Tablica::zmien_rozmiar(int n_kolumny, int n_wiersze)
 			n_typy[i] = typy[i];
 		}
 	}
-	if (n_kolumny == kolumny)
+	else if (n_kolumny == kolumny)
 	{
 		for (int i = 0; i < kolumny; i++)
 		{
 			n_typy[i] = typy[i];
 		}
 	}
-	if (n_kolumny > kolumny)
+	else
 	{
 		for (int i = 0; i < kolumny; i++)
 		{
 			n_typy[i] = typy[i];
 		}
-		cout << "0 -> Int, 1 -> String\n";
+		cout << "0 -> Int, 1 -> String, Double -> 2\n";
 		for (int i = kolumny; i < n_kolumny; i++)
 		{
 			cout << "Typ kolumny nr " << i + 1 << ": ";
@@ -278,7 +333,7 @@ int Tablica::zmien_rozmiar(int n_kolumny, int n_wiersze)
 	return 0;
 }
 
-int Tablica::sumuj_k(int numer, int* wynik)
+int Tablica::sumuj_k(int numer, double* wynik)
 {
 	if (numer<1 || numer>ile_k())
 	{
@@ -286,12 +341,12 @@ int Tablica::sumuj_k(int numer, int* wynik)
 	}
 	for (int i = 0; i < wiersze; i++)
 	{
-		*wynik = *tab[numer-1][i]+ *wynik;
+		*wynik = *tab[numer - 1][i] + *wynik;
 	}
 	return 0;
 }
 
-int Tablica::sumuj_w(int numer, int* wynik)
+int Tablica::sumuj_w(int numer, double* wynik)
 {
 	if (numer<1 || numer>ile_w())
 	{
@@ -299,12 +354,12 @@ int Tablica::sumuj_w(int numer, int* wynik)
 	}
 	for (int i = 0; i < kolumny; i++)
 	{
-		*wynik = *tab[i][numer-1]+ *wynik;
+		*wynik = *tab[i][numer - 1] + *wynik;
 	}
 	return 0;
 }
 
-int Tablica::min_k(int numer, int* wynik)
+int Tablica::min_k(int numer, double* wynik)
 {
 	if (numer < 1 || numer > kolumny)
 	{
@@ -321,7 +376,7 @@ int Tablica::min_k(int numer, int* wynik)
 	return 0;
 }
 
-int Tablica::min_w(int numer, int* wynik)
+int Tablica::min_w(int numer, double* wynik)
 {
 	if (numer < 1 || numer > wiersze)
 	{
@@ -338,7 +393,7 @@ int Tablica::min_w(int numer, int* wynik)
 	return 0;
 }
 
-int Tablica::max_k(int numer, int* wynik)
+int Tablica::max_k(int numer, double* wynik)
 {
 	if (numer < 1 || numer > kolumny)
 	{
@@ -355,7 +410,7 @@ int Tablica::max_k(int numer, int* wynik)
 	return 0;
 }
 
-int Tablica::max_w(int numer, int* wynik)
+int Tablica::max_w(int numer, double* wynik)
 {
 	if (numer < 1 || numer > wiersze)
 	{
@@ -364,7 +419,7 @@ int Tablica::max_w(int numer, int* wynik)
 	*wynik = *tab[0][numer - 1];
 	for (int i = 1; i < kolumny; i++)
 	{
-		if (*tab[i][numer - 1] > *wynik)
+		if (*tab[i][numer - 1] > * wynik)
 		{
 			*wynik = *tab[i][numer - 1];
 		}
@@ -372,26 +427,26 @@ int Tablica::max_w(int numer, int* wynik)
 	return 0;
 }
 
-int Tablica::srednia_k(int numer, float* wynik)
+int Tablica::srednia_k(int numer, double* wynik)
 {
 	if (numer < 1 || numer > kolumny)
 	{
 		return ERR_INVALID_VALUE;
 	}
-	int suma = 0;
+	double suma = 0;
 	sumuj_k(numer, &suma);
-	*wynik = (float)suma / wiersze;
+	*wynik = suma / wiersze;
 	return 0;
 }
 
-int Tablica::srednia_w(int numer, float* wynik)
+int Tablica::srednia_w(int numer, double* wynik)
 {
 	if (numer < 1 || numer > wiersze)
 	{
 		return ERR_INVALID_VALUE;
 	}
-	int suma = 0;
+	double suma = 0;
 	sumuj_w(numer, &suma);
-	*wynik = (float)suma / kolumny;
+	*wynik = suma / kolumny;
 	return 0;
 }
