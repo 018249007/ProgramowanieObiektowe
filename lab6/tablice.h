@@ -75,9 +75,7 @@ public:
             for (int j = 0; j < kolumny; j++)
             {
                 delete tab[j][i];
-                cout << " ";
             }
-            cout << endl;
         }
         zwolnij_pamiec();
     }
