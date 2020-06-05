@@ -1,5 +1,5 @@
 all: main
-
+ 
 main: komorkaDbl.o komorkaInt.o komorkaStr.o tablice.o menu.o main.o
 	g++ komorkaDbl.o komorkaStr.o komorkaInt.o tablice.o menu.o main.o -o main
 
