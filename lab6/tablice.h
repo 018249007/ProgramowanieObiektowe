@@ -69,6 +69,13 @@ public:
     // Destruktor zwalnia pamiec tablicy dwuwymiarowej
     ~Tablica()
     {
+     for (int i = 0; i < wiersze;i++)
+        {
+            for (int j = 0; j < kolumny; j++)
+            {
+                delete tab[j][i];
+            }
+        }
         zwolnij_pamiec();
     }
 
