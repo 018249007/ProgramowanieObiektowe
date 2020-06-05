@@ -18,7 +18,7 @@ public:
 	/**
 	  * Konstruktor domyslny
 	  *
-	  * w przypadku braku argumentow ustawia wartosc na ""
+	  * w przypadku braku argumentow ustawia wartosc na 0
 	  *
 	  * @param[in] a - nowa wartosc
 	  */
