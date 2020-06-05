@@ -39,7 +39,7 @@ public:
 	// Metoda zwraca wartosc komorki
 	string zwroc_wartosc();
 
-	// Metoda zwraca 0
+	// Metoda zwraca typ (int -> 0)
 	int zwroc_typ();
 
 	// Operator sprawdza czy wartosc < a
