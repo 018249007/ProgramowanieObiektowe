@@ -1,7 +1,7 @@
 #include "tablice.h"
 #define ERR_INVALID_VALUE 1
 #define ERR_EOF 1
-
+ 
 int Tablica::ile_k()
 {
 	return kolumny;
