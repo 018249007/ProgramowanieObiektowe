@@ -39,7 +39,7 @@ public:
 	// Metoda zwraca wartosc komorki
 	string zwroc_wartosc();
 
-	// Metoda zwraca 1
+	// Metoda zwraca typ (string -> 1)
 	int zwroc_typ();
 
 	// Operator sprawdza czy dlugosc lancucha < a
