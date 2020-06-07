@@ -59,41 +59,23 @@ void menu(Tablica* arr)
 			break;
 		case 5:
 		{
-			int ktory_w, ktory_k, typ;
+			int ktory_w, ktory_k;
+			string nowy;
 			cout << "Zakres elementow:\nLiczba kolumn -> " << arr->ile_k() << endl << "Liczba wierszy -> " << arr->ile_w() << endl;
 			arr->wypisz();
 			cout << "Ktory element zmienic?\nKolumna -> ";
 			cin >> ktory_k;
 			cout << "Wiersz -> ";
 			cin >> ktory_w;
-			err = arr->zwroc_typ(ktory_k, &typ);
+			cout << "Nowy element: ";
+			cin.clear();
+			cin.ignore(INT16_MAX, '\n');
+			getline(cin, nowy);
+			err = arr->zmien_element(ktory_w, ktory_k, nowy);
 			if (err)
 			{
 				cout << "Nieprawidlowa wartosc\n";
 				break;
-			}
-			if (typ == 1)
-			{
-				string nowy;
-				cout << "Nowy element: ";
-				cin.clear();
-				cin.ignore(INT16_MAX, '\n');
-				getline(cin, nowy);
-				arr->zmien_element(ktory_w, ktory_k, nowy);
-			}
-			else if(typ == 0)
-			{
-				int nowy;
-				cout << "Nowy element: ";
-				cin >> nowy;
-				arr->zmien_element(ktory_w, ktory_k, nowy);
-			}
-			else if(typ == 2)
-			{
-				double nowy;
-				cout << "Nowy element: ";
-				cin >> nowy;
-				arr->zmien_element(ktory_w, ktory_k, nowy);
 			}
 			cout << "Pomyslnie zmieniono\n";
 			break;

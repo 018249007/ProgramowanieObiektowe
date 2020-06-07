@@ -30,53 +30,33 @@ public:
 	~KomorkaStr() {}
 
 	/**
-	  * Metoda zmienia wartosc komorki
+	  * Metoda zwraca wartosc komorki
 	  *
-	  * @param[in] nowy - nowa wartosc
+	  * @return wartosc
 	  */
-	void zmien_wartosc(string nowy);
+	string zwroc_wartosc() { return wartosc; }
 
-	// Metoda zwraca wartosc komorki
-	string zwroc_wartosc();
-
-	// Metoda zwraca typ (string -> 1)
-	int zwroc_typ();
+	/** 
+	  * Metoda zwraca typ komorki
+	  *
+	  * @return typ (string - 1)
+	  */
+	int zwroc_typ() { return 1; }
 
 	// Operator sprawdza czy dlugosc lancucha < a
-	bool operator< (int& a)
-	{
-		return wartosc.length() < a;
-	}
+	bool operator< (double& a) { return wartosc.length() < a; }
 
 	// Operator sprawdza czy dlugosc lancucha > a
-	bool operator> (int& a)
-	{
-		return wartosc.length() > a;
-	}
+	bool operator> (double& a) { return wartosc.length() > a; }
 
 	// Operator przypisania ustawia wartosc na a
-	void operator= (string& a)
-	{
-		wartosc = a;
-	}
+	void operator= (string& a) { wartosc = a; }
 
 	// Operator sumy dodaje dlugosc lancucha do a
-	int operator+ (int& a)
-	{
-		return wartosc.length() + a;
-	}
+	double operator+ (double& a) { return wartosc.length() + a; }
 
-	// Operator rzutowania zwraca wartosc
-	operator string() const
-	{
-		return wartosc;
-	}
-
-	// Operator rzutowania zwraca dlugosc lancucha wartosc
-	operator int() const
-	{
-		return wartosc.length();
-	}
+	// Operator rzutowania na double
+	operator double() const { return wartosc.length(); }
 };
 
 #endif

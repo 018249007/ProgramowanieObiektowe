@@ -30,47 +30,33 @@ public:
 	~KomorkaInt() {}
 
 	/**
-	  * Metoda zmienia wartosc komorki
+	  * Metoda zwraca wartosc komorki w postaci string
 	  *
-	  * @param[in] nowy - nowa wartosc
+	  * @return wartosc
 	  */
-	void zmien_wartosc(int nowy);
+	string zwroc_wartosc() { return to_string(wartosc); }
 
-	// Metoda zwraca wartosc komorki
-	string zwroc_wartosc();
-
-	// Metoda zwraca typ (int -> 0)
-	int zwroc_typ();
+	/** 
+	  * Metoda zwraca typ komorki
+	  *
+	  * return typ (int - 0)
+	  */
+	int zwroc_typ() { return 0; }
 
 	// Operator sprawdza czy wartosc < a
-	bool operator< (int& a)
-	{
-		return wartosc < a;
-	}
+	bool operator< (double& a) { return wartosc < a; }
 
 	// Operator sprawdza czy wartosc > a
-	bool operator> (int& a)
-	{
-		return wartosc > a;
-	}
+	bool operator> (double& a) { return wartosc > a; }
 
 	// Operator przypisania ustawia wartosc na a
-	void operator= (int& a)
-	{
-		wartosc = a;
-	}
+	void operator= (int& a) { wartosc = a; }
 
 	// Operator sumy dodaje wartosc do a
-	int operator+ (int& a)
-	{
-		return wartosc + a;
-	}
+	double operator+ (double& a) { return wartosc + a; }
 
-	// Operator rzutowania zwraca wartosc
-	operator int() const
-	{
-		return wartosc;
-	}
+	// Operator rzutowania na double
+	operator double() const { return wartosc; }
 };
 
 #endif

@@ -87,16 +87,6 @@ public:
     int ile_w();
 
     /**
-      * Metoda zwraca typ kolumny
-      *
-      * @param[in] numer - numer kolumny
-      * @param[in,out] typ - typ kolumny (0 - int, 1 - string, 2 - double)
-      *
-      * @return kod bledu lub 0 w przypadku powodzenia
-      */
-    int zwroc_typ(int numer, int* typ);
-
-    /**
       * Metoda zmienia typ kolumny
       *
       * @param[in] numer - numer kolumny
@@ -139,28 +129,6 @@ public:
       * @return - kod bledu lub 0 w przypadku powodzenia
       */
     int zmien_element(int ktory_w, int ktory_k, string nowy);
-
-    /**
-      * Metoda zmienia wartosc danej komorki
-      *
-      * @param[in] ktory_w - numer wiersza
-      * @param[in] ktory_k - numer kolumny
-      * @param[in] nowy - nowa wartosc int
-      *
-      * @return - kod bledu lub 0 w przypadku powodzenia
-      */
-    int zmien_element(int ktory_w, int ktory_k, int nowy);
-
-    /**
-      * Metoda zmienia wartosc danej komorki
-      *
-      * @param[in] ktory_w - numer wiersza
-      * @param[in] ktory_k - numer kolumny
-      * @param[in] nowy - nowa wartosc double
-      *
-      * @return - kod bledu lub 0 w przypadku powodzenia
-      */
-    int zmien_element(int ktory_w, int ktory_k, double nowy);
 
     /**
       * Metoda zmienia rozmiar podanej tablicy
