@@ -49,17 +49,7 @@ int Tablica::nowa_tablica(int n_kolumny, int n_wiersze)
 	zwolnij_pamiec();
 	this->kolumny = n_kolumny;
 	this->wiersze = n_wiersze;
-	int tmp_typ;
-	for (int i = 0; i < kolumny; i++)
-	{
-		cout << "Typ kolumny nr " << i + 1 << ": ";
-		cin >> tmp_typ;
-		if (tmp_typ != 0 && tmp_typ != 1 && tmp_typ != 2)
-		{
-			return ERR_INVALID_VALUE;
-		}
-		typy[i] = tmp_typ;
-	}
+	pobierz_typy();
 	tab = alokuj_pamiec(n_kolumny, n_wiersze, typy);
 	return 0;
 }
