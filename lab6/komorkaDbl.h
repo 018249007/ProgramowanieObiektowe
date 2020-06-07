@@ -39,7 +39,7 @@ public:
 	/**
 	  * Metoda zwraca typ komorki
 	  *
-	  * @return typ (double - 2)
+	  * @return typ (double -> 2)
 	  */
 	int zwroc_typ() { return 2; }
 

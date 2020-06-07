@@ -39,7 +39,7 @@ public:
 	/** 
 	  * Metoda zwraca typ komorki
 	  *
-	  * return typ (int - 0)
+	  * @return typ (int -> 0)
 	  */
 	int zwroc_typ() { return 0; }
 
