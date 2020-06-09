@@ -3,7 +3,7 @@ all: main
 main: tablice.o menu.o main.o
 	g++ tablice.o menu.o main.o -o main
 
-tablice.o: tablice.cpp tablice.h komorka.h komorkaInt.h komorkaStr.h komorkaDbl.h
+tablice.o: tablice.cpp tablice.h Ikomorka.h komorkaInt.h komorkaStr.h komorkaDbl.h
 	g++ tablice.cpp -c -o tablice.o
 
 menu.o: menu.cpp menu.h

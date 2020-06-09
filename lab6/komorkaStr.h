@@ -1,6 +1,6 @@
 #ifndef KOMORKASTR_H
 #define KOMORKASTR_H
-#include "komorka.h"
+#include "Ikomorka.h"
 
 /**
   * Klasa przechowuje wartosc typu string
@@ -36,21 +36,14 @@ public:
 	  */
 	string zwroc_wartosc() { return wartosc; }
 
-	/** 
-	  * Metoda zwraca typ komorki
-	  *
-	  * @return typ (string -> 1)
-	  */
-	int zwroc_typ() { return 1; }
-
 	// Operator sprawdza czy dlugosc lancucha < a
 	bool operator< (double& a) { return wartosc.length() < a; }
 
 	// Operator sprawdza czy dlugosc lancucha > a
 	bool operator> (double& a) { return wartosc.length() > a; }
 
-	// Operator przypisania ustawia wartosc na a
-	void operator= (string& a) { wartosc = a; }
+	// Operator przypisania ustawia wartosc na s
+	void operator= (const string& s) { wartosc = s; }
 
 	// Operator sumy dodaje dlugosc lancucha do a
 	double operator+ (double& a) { return wartosc.length() + a; }

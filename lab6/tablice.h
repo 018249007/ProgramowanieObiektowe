@@ -2,7 +2,7 @@
 #define TABLICE_H
 #define BAZA "Baza.txt"
 #include <fstream>
-#include "komorka.h"
+#include "Ikomorka.h"
 #include "komorkaInt.h"
 #include "komorkaStr.h"
 #include "komorkaDbl.h"

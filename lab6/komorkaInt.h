@@ -1,6 +1,6 @@
 #ifndef KOMORKAINT_H
 #define KOMORKAINT_H
-#include "komorka.h"
+#include "Ikomorka.h"
 
 /**
   * Klasa przechowuje wartosc typu int
@@ -36,21 +36,14 @@ public:
 	  */
 	string zwroc_wartosc() { return to_string(wartosc); }
 
-	/** 
-	  * Metoda zwraca typ komorki
-	  *
-	  * @return typ (int -> 0)
-	  */
-	int zwroc_typ() { return 0; }
-
 	// Operator sprawdza czy wartosc < a
 	bool operator< (double& a) { return wartosc < a; }
 
 	// Operator sprawdza czy wartosc > a
 	bool operator> (double& a) { return wartosc > a; }
 
-	// Operator przypisania ustawia wartosc na a
-	void operator= (int& a) { wartosc = a; }
+	// Operator przypisania ustawia wartosc na s
+	void operator= (const string& s) { wartosc = stoi(s); }
 
 	// Operator sumy dodaje wartosc do a
 	double operator+ (double& a) { return wartosc + a; }
