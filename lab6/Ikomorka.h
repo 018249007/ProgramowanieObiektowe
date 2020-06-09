@@ -26,7 +26,7 @@ public:
 	// Operator rzutowania
 	virtual operator double() const = 0;
 
-	// Metoda zwraca wartosc
+	// Metoda zwraca wartosc komorki
 	virtual string zwroc_wartosc() = 0;
 };
 
